@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
+import { useAppDispatch } from '@/redux/hooks/hooks';
+import { createUser } from '@/redux/features/user/userSlice';
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -22,9 +24,11 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>();
+  const dispatch = useAppDispatch();
 
   const onSubmit = (data: LoginFormInputs) => {
     console.log(data);
+    dispatch(createUser({ email: data.email, password: data.password }));
   };
 
   return (
