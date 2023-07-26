@@ -3,8 +3,15 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/components/ui/use-toast';
+import { useGetProductsQuery } from '@/redux/api/apiSlice';
+import {
+  priceToggle,
+  toggleStatus,
+} from '@/redux/features/products/productSlice';
+import { useAppSelector } from '@/redux/hooks/hooks';
 import { IProduct } from '@/types/globalTypes';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function Products() {
   const [data, setData] = useState<IProduct[]>([]);
@@ -14,17 +21,15 @@ export default function Products() {
       .then((data) => setData(data));
   }, []);
 
+  // const {data, isLoading, error} = useGetProductsQuery(undefined)
+
   const { toast } = useToast();
 
-  //! Dummy Data
-
-  const status = true;
-  const priceRange = 100;
-
-  //! **
+  const { priceRange, status } = useAppSelector((state) => state.product);
+  const dispatch = useDispatch();
 
   const handleSlider = (value: number[]) => {
-    console.log(value);
+    dispatch(priceToggle(value));
   };
 
   let productsData;
@@ -45,7 +50,7 @@ export default function Products() {
         <div>
           <h1 className="text-2xl uppercase">Availability</h1>
           <div className="flex items-center space-x-2 mt-3">
-            <Switch id="in-stock" />
+            <Switch onClick={() => dispatch(toggleStatus())} id="in-stock" />
             <Label htmlFor="in-stock">In stock</Label>
           </div>
         </div>

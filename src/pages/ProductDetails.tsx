@@ -1,5 +1,6 @@
 import ProductReview from '@/components/ProductReview';
 import { Button } from '@/components/ui/button';
+import { useSingleProductQuery } from '@/redux/api/apiSlice';
 import { IProduct } from '@/types/globalTypes';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -15,6 +16,8 @@ export default function ProductDetails() {
       .then((data) => setData(data));
   }, []);
 
+  // const {data,isLoading, error } = useSingleProductQuery(id)
+
   const product = data?.find((item) => item._id === Number(id));
 
   //! Temporary code ends here
@@ -29,7 +32,7 @@ export default function ProductDetails() {
           <h1 className="text-3xl font-semibold">{product?.name}</h1>
           <p className="text-xl">Rating: {product?.rating}</p>
           <ul className="space-y-1 text-lg">
-            {product?.features?.map((feature) => (
+            {product?.features?.map((feature: string) => (
               <li key={feature}>{feature}</li>
             ))}
           </ul>
