@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { onAuthStateChanged } from 'firebase/auth';
 import { Toaster } from './components/ui/Toaster';
 import MainLayout from './layouts/MainLayout';
@@ -10,14 +11,14 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setLoading(true));
+    dispatch(setLoading());
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(setUser(user.email!));
-        dispatch(setLoading(false));
+        dispatch(setLoading());
       } else {
-        dispatch(setLoading(false));
+        dispatch(setLoading());
       }
     });
   }, [dispatch]);
