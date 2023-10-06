@@ -1,17 +1,10 @@
-import {
-  useGetCommentQuery,
-  usePostCommentMutation,
-} from '@/redux/features/products/productApi';
+import { useGetCommentQuery } from '@/redux/features/products/productApi';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { FiSend } from 'react-icons/fi';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
-interface IProps {
-  id: string;
-}
 
 export default function ProductReview() {
   const { id } = useParams();
@@ -21,13 +14,8 @@ export default function ProductReview() {
     pollingInterval: 300000,
   });
 
-  const [postComment, options] = usePostCommentMutation();
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const options = {
-      id,
-      data: { comment: inputValue },
-    };
     setInputValue('');
   };
 

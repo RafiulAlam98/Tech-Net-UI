@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { auth } from '@/lib/firebase';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 interface IUserState {
@@ -49,13 +50,13 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    setLoading: (state, action) => {
+    setLoading: (state) => {
       state.isLoading = false;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createUser.pending, (state, action) => {
+      .addCase(createUser.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(createUser.fulfilled, (state, action) => {

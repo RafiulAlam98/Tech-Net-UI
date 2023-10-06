@@ -8,7 +8,8 @@ import Checkout from '@/pages/Checkout';
 import Signup from '@/pages/Signup';
 import ProductDetails from '@/pages/ProductDetails';
 import { LoginForm } from '@/components/LoginForm';
-import PrivateRoute from './privateRoute';
+import PrivateRoute from './PrivateRoute';
+
 
 const routes = createBrowserRouter([
   {
